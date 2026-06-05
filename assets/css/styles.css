@@ -37,7 +37,20 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   background: var(--color-bg);
+
+  /* Hidden until JS finishes loading the shared header + footer,
+     so the page doesn't visibly "jump" as the header drops in.
+     main.js sets body.ready once partials are in place. */
+  opacity: 0;
+  transition: opacity .25s ease;
 }
+body.ready { opacity: 1; }
+
+/* If JS is disabled, never hide the page. */
+@media (scripting: none) {
+  body { opacity: 1; }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--color-text);

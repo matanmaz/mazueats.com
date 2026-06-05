@@ -1,6 +1,7 @@
 /* ============================================================
    MAZU — site script
-   - Loads shared header + footer partials
+   - Loads shared header + footer partials BEFORE revealing the page,
+     so it doesn't visibly jump as the header drops in.
    - Marks the current nav link as active
    - Mobile menu toggle
    - Home page slideshow: scrolling carousel that shows N images
@@ -9,13 +10,24 @@
 
 document.addEventListener('DOMContentLoaded', init);
 
+/* Safety net: if anything in init() throws or stalls, reveal the
+   page anyway after 2s so it can never get stuck invisible. */
+setTimeout(() => document.body.classList.add('ready'), 2000);
+
 async function init() {
-  await loadPartial('site-header', 'partials/header.html');
-  await loadPartial('site-footer', 'partials/footer.html');
+  // Load header + footer in parallel; wait for BOTH before showing the page.
+  await Promise.all([
+    loadPartial('site-header', 'partials/header.html'),
+    loadPartial('site-footer', 'partials/footer.html'),
+  ]);
 
   highlightActiveNav();
   wireMobileMenu();
   startSlideshow();
+
+  // Reveal the fully-assembled page on the next frame so the browser
+  // has a chance to lay everything out first (no flash, no jump).
+  requestAnimationFrame(() => document.body.classList.add('ready'));
 }
 
 /* ---------- Load shared header/footer ---------- */
