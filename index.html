@@ -9,28 +9,32 @@
 </head>
 <body data-page="index">
 
-  <!-- Shared header injected here by assets/js/main.js -->
+  <!-- Shared header injected by assets/js/main.js -->
   <div id="site-header"></div>
 
   <main>
     <!--
       HOME SLIDESHOW
-      To add/remove photos: just add/remove <img> tags below.
-      The script handles fading + prev/next automatically.
+      To add/remove photos: just add/remove <img> tags inside .slideshow-track.
+      To change how many show at once or how fast it scrolls, edit the CSS
+      variables --slide-visible, --slide-height, --slide-gap, --slide-speed
+      at the top of assets/css/styles.css.
     -->
     <section class="slideshow">
-      <img src="img/about-img/3.jpg"  alt="" />
-      <img src="img/about-img/2.jpg"  alt="" />
-      <img src="img/about-img/4.jpg"  alt="" />
-      <img src="img/about-img/5.jpg"  alt="" />
-      <img src="img/about-img/6.jpg"  alt="" />
-      <img src="img/about-img/7.jpg"  alt="" />
-      <img src="img/about-img/9.jpg"  alt="" />
-      <img src="img/about-img/12.jpg" alt="" />
-      <img src="img/about-img/13.jpg" alt="" />
-      <img src="img/about-img/14.jpg" alt="" />
-      <img src="img/about-img/15.jpg" alt="" />
-      <img src="img/about-img/16.jpg" alt="" />
+      <div class="slideshow-track">
+        <img src="img/about-img/3.jpg"  alt="" />
+        <img src="img/about-img/2.jpg"  alt="" />
+        <img src="img/about-img/4.jpg"  alt="" />
+        <img src="img/about-img/5.jpg"  alt="" />
+        <img src="img/about-img/6.jpg"  alt="" />
+        <img src="img/about-img/7.jpg"  alt="" />
+        <img src="img/about-img/9.jpg"  alt="" />
+        <img src="img/about-img/12.jpg" alt="" />
+        <img src="img/about-img/13.jpg" alt="" />
+        <img src="img/about-img/14.jpg" alt="" />
+        <img src="img/about-img/15.jpg" alt="" />
+        <img src="img/about-img/16.jpg" alt="" />
+      </div>
 
       <div class="slideshow-controls">
         <button class="prev" aria-label="Previous">&#10094;</button>
@@ -39,7 +43,7 @@
     </section>
   </main>
 
-  <!-- Shared footer injected here by assets/js/main.js -->
+  <!-- Shared footer injected by assets/js/main.js -->
   <div id="site-footer"></div>
 
   <script src="assets/js/main.js"></script>

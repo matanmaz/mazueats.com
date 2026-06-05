@@ -21,6 +21,12 @@
   --container-max: 1140px;
   --space:  1rem;
   --radius: 8px;
+
+  /* Slideshow tuning — change these to taste */
+  --slide-visible: 3;       /* how many images visible at once on desktop */
+  --slide-gap:     10px;    /* space between slides */
+  --slide-height:  340px;   /* height of the slideshow */
+  --slide-speed:   3500ms;  /* time each slide spends before advancing */
 }
 
 /* ---------- Reset / base ---------- */
@@ -120,24 +126,39 @@ main .container > p { font-size: 1.05rem; }
 .hours-box h3 { margin-top: 0; }
 .hours-box p { margin: .25rem 0; color: var(--color-text); }
 
-/* ---------- Home slideshow ---------- */
+/* ============================================================
+   Home slideshow — multi-image scrolling carousel
+   - Shows --slide-visible images at once
+   - Auto-scrolls one image at a time, looping forever
+   ============================================================ */
 .slideshow {
   position: relative;
-  max-width: 100%;
+  max-width: var(--container-max);
   margin: 0 auto;
-  aspect-ratio: 16 / 9;
+  height: var(--slide-height);
   overflow: hidden;
-  background: #000;
 }
-.slideshow img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
+
+/* The track holds all images side-by-side and slides left */
+.slideshow-track {
+  display: flex;
+  gap: var(--slide-gap);
+  height: 100%;
+  /* width is set inline by JS once it knows the slide count */
+  will-change: transform;
+}
+
+.slideshow-track img {
+  /* Each slide takes 1/N of the visible area, minus its share of the gaps */
+  flex: 0 0 calc(
+    (100% - (var(--slide-visible) - 1) * var(--slide-gap)) / var(--slide-visible)
+  );
+  height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+  border-radius: var(--radius);
+  user-select: none;
+  -webkit-user-drag: none;
 }
-.slideshow img.is-active { opacity: 1; }
 
 .slideshow-controls {
   position: absolute;
@@ -151,12 +172,20 @@ main .container > p { font-size: 1.05rem; }
   background: rgba(0,0,0,.3);
   color: #fff;
   border: 0;
-  font-size: 2rem;
-  width: 50px;
+  font-size: 1.75rem;
+  width: 44px;
   cursor: pointer;
   transition: background .2s;
 }
 .slideshow-controls button:hover { background: rgba(0,0,0,.6); }
+
+/* Responsive: fewer images visible on smaller screens */
+@media (max-width: 992px) {
+  :root { --slide-visible: 2; --slide-height: 260px; }
+}
+@media (max-width: 600px) {
+  :root { --slide-visible: 1; --slide-height: 220px; }
+}
 
 /* ---------- Contact page ---------- */
 .contact-info p { margin: .5rem 0; color: var(--color-text); }
