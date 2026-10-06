@@ -9,7 +9,6 @@ mazueats.com/
 ├── index.html          # Home (photo slideshow)
 ├── about.html          # About + hours
 ├── menu.html           # Menu (single image)
-├── ifa.html            # Immigrants Feed America events
 ├── contact.html        # Contact / location
 ├── partials/
 │   ├── header.html     # Top bar + nav (edit nav links ONCE here)
@@ -53,10 +52,6 @@ Open `about.html` — the hours are in plain HTML inside `.hours-box`.
 Replace `img/menu.jpg` with a new image. (If you ever want a text-based menu instead
 of an image, ask and I'll swap it for an editable HTML version.)
 
-### Add or edit an event on the IFA page
-Open `ifa.html`. Each event is a `<article class="event">` block — copy/paste one
-and edit the date, title, and body. Use `<span class="badge badge-free">Free</span>`
-or `<span class="badge badge-paid">$15</span>` for the tag.
 
 ## Running locally
 Because the site uses `fetch()` to load the header/footer partials, you can't just
